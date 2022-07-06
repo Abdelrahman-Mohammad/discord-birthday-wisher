@@ -9,4 +9,6 @@ const BirthdaySchema = new mongoose.Schema({
   lastUpdated: { type: Date, default: new Date() },
 });
 
-module.exports = mongoose.model("Birthdays", BirthdaySchema);
+const birthdays = mongoose.model("Birthdays", BirthdaySchema);
+
+module.exports = birthdays;
