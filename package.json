@@ -1,0 +1,43 @@
+{
+  "name": "discord-birthday-wisher",
+  "version": "1.0.0",
+  "description": "discord-brithday-wisher is a powerful npm package that wishes everyone a happy birthday on their birthday, uses MongoDB.",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^13.8.1",
+    "mongoose": "^6.4.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher.git"
+  },
+  "keywords": [
+    "birthday",
+    "birthday-wisher",
+    "bot",
+    "framework",
+    "discord",
+    "discord-birthday",
+    "discord-birthday-wisher",
+    "discord-birthdays",
+    "discord.js",
+    "birthdaybot",
+    "discord-birthday-bot",
+    "discord-bot",
+    "discordbot",
+    "birthdays",
+    "wisher",
+    "happy",
+    "happybirthday"
+  ],
+  "author": "Abdelrahman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/issues"
+  },
+  "homepage": "https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher#readme"
+  
+}
