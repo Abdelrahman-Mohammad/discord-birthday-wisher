@@ -106,3 +106,5 @@ birthdays.changeBirthday(<UserID - String>, <GuildID - String>, <BirthdayDay - N
 ```
 Promise<Object>
 ```
+
+Have fun and happy birthdays! Made with ❤ by Abdelrahman.
