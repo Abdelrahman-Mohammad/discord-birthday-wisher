@@ -19,7 +19,7 @@ npm update discord-birthday-wisher
 # Changelog
 - **6 July 2022** (v1.1.0) - Grand Launch.
 
-# Introduction
+# Quick Example
 ```js
 /* setBirthday Example */
 const Birthdays = require("discord-birthday-wisher");
