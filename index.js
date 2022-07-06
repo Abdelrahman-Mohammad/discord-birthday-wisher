@@ -13,7 +13,6 @@ class DiscordBirthdayWisher {
     return mongoose.connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
     });
   }
 

@@ -1,9 +1,10 @@
 {
   "name": "discord-birthday-wisher",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "discord-brithday-wisher is a powerful npm package that wishes everyone a happy birthday on their birthday, uses MongoDB.",
   "main": "index.js",
   "dependencies": {
+    "discord-birthday-wisher": "^1.1.0",
     "discord.js": "^13.8.1",
     "mongoose": "^6.4.3"
   },
@@ -39,5 +40,4 @@
     "url": "https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/issues"
   },
   "homepage": "https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher#readme"
-  
 }
