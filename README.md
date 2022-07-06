@@ -1,5 +1,5 @@
 <p align="center"><a href="https://nodei.co/npm/discord-birthday-wisher/"><img src="https://nodei.co/npm/discord-birthday-wisher.png"></a></p>
-<p align="center"><img src="https://img.shields.io/npm/v/discord-birthday-wisher"> <img src="https://img.shields.io/github/repo-size/Abdelrahman-Mohammad/discord-birthday-wisher"> <img src="https://img.shields.io/npm/l/discord-birthday-wisher"> <img src="https://img.shields.io/github/contributors/Abdelrahman-Mohammad/discord-birthday-wisher"> <img src="https://img.shields.io/github/package-json/dependency-version/Abdelrahman-Mohammad/discord-birthday-wisher/mongoose"> <a href="https://discord.gg/rk7cVyk"><img src="https://discordapp.com/api/guilds/753938142246994031/widget.png" alt="Discord server"/></a></p>
+<p align="center"><img src="https://img.shields.io/npm/v/discord-birthday-wisher"> <img src="https://img.shields.io/github/repo-size/Abdelrahman-Mohammad/discord-birthday-wisher"> <img src="https://img.shields.io/npm/l/discord-birthday-wisher"> <img src="https://img.shields.io/github/contributors/Abdelrahman-Mohammad/discord-birthday-wisher"> <img src="https://img.shields.io/github/package-json/dependency-version/Abdelrahman-Mohammad/discord-birthday-wisher/mongoose"> <a href="https://discord.gg/rk7cVyk"><iframe src="https://discord.com/widget?id=753938142246994031&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe></a></p>
 
 # discord-birthday-wisher
 - discord-brithday-wisher is a powerful npm package that wishes everyone a happy birthday on their birthday, uses MongoDB.
@@ -43,7 +43,7 @@ Birthdays.setURL("mongodb://..."); // You only need to do this ONCE per process.
 # Methods
 **setBirthday**
 
-Creates an entry in database for that user if it doesnt exist.
+Creates an entry in database for that birthday if it doesnt exist.
 ```js
 Birthdays.setBirthday(<UserID - String>, <GuildID - String>, <BirthdayDay - Number> , BirthdayMonth - Number>, <BirthdayYear - Number>);
 ```
@@ -53,7 +53,7 @@ Promise<Object>
 ```
 **deleteBirthday**
 
-If the entry exists, it deletes it from database.
+If the birthday exists, deletes it from the database.
 ```js
 Birthdays.deleteBirthday(<UserID - String>, <GuildID - String>);
 ```
@@ -63,7 +63,7 @@ Promise<Object>
 ```
 **changeBirthday**
 
-If the entry exists, it deletes it from database.
+If the birthday exists, changes it from the database.
 ```js
 Birthdays.changeBirthday(<UserID - String>, <GuildID - String>, <BirthdayDay - Number> , BirthdayMonth - Number>, <BirthdayYear - Number>);
 ```
