@@ -89,13 +89,6 @@ class DiscordBirthdayWisher {
 
       channel.send({ embeds: [embed] });
     });
-    const embed = new MessageEmbed()
-      .setColor("BLURPLE")
-      .setDescription(
-        `I will wish <@${userId}> a happy birthday on ${birthdayDay}/${birthdayMonth}/${birthdayYear}`
-      );
-
-    channel.send({ embeds: [embed] });
 
     return newBirthday;
   }
