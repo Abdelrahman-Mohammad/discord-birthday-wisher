@@ -71,9 +71,8 @@ client.on("messageCreate", async (message) => {
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
-  const channelId = message.channel.id; // Current Channel ID
-  const myBirthday = await Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);
-  await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`);
+  const myBirthday = await Birthdays.changeBirthday(userId, guildId, 8, 11, 2005);
+  await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`);
 });
 ```
 
