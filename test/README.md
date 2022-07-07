@@ -8,6 +8,7 @@ const Birthdays = require("discord-birthday-wisher");
 
 After that, you need to provide a valid mongo database url, and set it. You can do so by:
 
+See How to connect to MongoDB Atlas [here](https://studio3t.com/knowledge-base/articles/connect-to-mongodb-atlas/)
 ```js
 Birthdays.connectionURL("mongodb://..."); // You only need to do this ONCE per process.
 ```
@@ -25,9 +26,9 @@ _Following example assumes that you are able to write asynchronous code (use `aw
 
 Examples:
 
-- [Adding a new birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test#adding-a-new-birthday)
-- [Removing a brithday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test#removing-a-birthday)
-- [Chaning a birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test#changing-a-birthday)
+- [Adding a new birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/blob/main/test/README.md#adding-a-new-birthday)
+- [Removing a brithday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/blob/main/test/README.md#removing-a-brithday)
+- [Chaning a birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/blob/main/test/README.md#chaning-a-birthday)
 
 ---
 
@@ -41,20 +42,12 @@ client.on("messageCreate", async (message) => {
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
   const channelId = message.channel.id; // Current Channel ID
-  const myBirthday = Birthdays.setBirthday(
-    userId,
-    guildId,
-    channelId,
-    8,
-    11,
-    2005
-  );
-  await message.channel.send(
-    `I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`
-  );
+  const myBirthday = Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);
+  await message.channel.send(`I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`);
 });
 ```
-
+_note: you need to have client defined for this fucntion, and it needs to be named "client"._
+  
 ## Removing a brithday
 
 ```js
@@ -79,18 +72,8 @@ client.on("messageCreate", async (message) => {
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
-  const channelId = message.channel.id; // Current Channel ID
-  const myBirthday = await Birthdays.setBirthday(
-    userId,
-    guildId,
-    channelId,
-    8,
-    11,
-    2005
-  );
-  await message.channel.send(
-    `Birthday changed. I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`
-  );
+  const myBirthday = await Birthdays.changeBirthday(userId, guildId, 8, 11, 2005);
+  await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`);
 });
 ```
 
@@ -117,7 +100,7 @@ client.on("messageCreate", async (message) => {
   const guildId = message.guild.id; // Current Guild ID
   const channelId = message.channel.id; // Current Channel ID
   const myBirthday = Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);
-  await message.channel.send(`I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`);
+  await message.channel.send(`I will wish you a happy birthday on ${myBirthday.Full}`);
 });
 
 // Deleting Birthday
@@ -139,9 +122,8 @@ client.on("messageCreate", async (message) => {
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
-  const channelId = message.channel.id; // Current Channel ID
-  const myBirthday = await Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);
-  await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`);
+  const myBirthday = await Birthdays.changeBirthday(userId, guildId, 8, 11, 2005);
+  await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`);
 ```
 
-_It's time for you to get creative.._
+_Now it's time for you to get creative and wish everyone a happy birthday.._

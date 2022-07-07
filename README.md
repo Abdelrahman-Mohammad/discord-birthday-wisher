@@ -93,7 +93,7 @@ Promise<Object>
 
 **deleteBirthday**
 
-If the birthday exists, deletes it from the database.
+If the birthday exists, deletes it.
 
 ```js
 Birthdays.deleteBirthday(<UserID - String>, <GuildID - String>);
@@ -107,7 +107,7 @@ Promise<Object>
 
 **changeBirthday**
 
-If the birthday exists, changes it from the database.
+If the birthday exists, changes it to the new birthday date.
 
 ```js
 Birthdays.changeBirthday(<BirthdayDay - Number> , <BirthdayMonth - Number>, <BirthdayYear - Number>);
