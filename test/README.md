@@ -11,6 +11,7 @@ After that, you need to provide a valid mongo database url, and set it. You can 
 ```js
 Birthdays.connectionURL("mongodb://..."); // You only need to do this ONCE per process.
 ```
+See H0ow to connect to MongoDB Atlas [here](https://studio3t.com/knowledge-base/articles/connect-to-mongodb-atlas/)
 
 _Examples assume that you have setted up the module as presented in 'Setting Up' section._
 _Following examples assume that your `Discord.Client` is called `client`._
