@@ -23,6 +23,24 @@ npm update discord-birthday-wisher
 
 # Changelog
 
+- **7 July 2022** (v1.3.0) - Changed
+
+```js
+<Birthday>.BirthdayDay;
+<Birthday>.BirthdayMonth;
+<Birthday>.BirthdayYear;
+<Birthday>.BirthdayFull;
+```
+
+to
+
+```js
+<Birthday>.Day;
+<Birthday>.Month;
+<Birthday>.Year;
+<Birthday>.Full;
+```
+
 - **6 July 2022** (v1.1.0) - Grand Launch.
 
 # Quick Example
