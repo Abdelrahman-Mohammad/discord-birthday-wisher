@@ -5,7 +5,7 @@
 
 - discord-birthday-wisher is a powerful npm package that wishes everyone a happy birthday on their birthday, uses MongoDB.
 - If you need help feel free to join our <a href="https://discord.gg/hnzXhDh">discord server</a> to talk and help you with your code.
-- If you encounter any of those fell free to open an issue in our <a href="https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/issues">github repository</a>.
+- If you encounter any of issues fell free to open an issue in our <a href="https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/issues">github repository</a>.
 
 # Download & Update
 
