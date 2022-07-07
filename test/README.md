@@ -127,4 +127,4 @@ client.on("messageCreate", async (message) => {
   await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`);
 ```
 
-_It's time for you to get creative.._
+_Now it's time for you to get creative and wish everyone a happy birthday.._
