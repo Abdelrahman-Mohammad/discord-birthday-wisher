@@ -1,19 +1,19 @@
-const birthdays = require("./models/birthdays.js");
 const mongoose = require("mongoose");
+const birthdays = require("./models/birthdays.js");
 const schedule = require("node-schedule");
 const { MessageEmbed } = require("discord.js");
 var mongoUrl;
-var job;
+let job;
 
 class DiscordBirthdayWisher {
   /**
    * @param {string} [dbUrl] - A valid mongo database URI.
    */
 
-  static async setURL(dbUrl) {
+  static async connectionURL(dbUrl) {
     if (!dbUrl) throw new TypeError("A database url was not provided.");
     mongoUrl = dbUrl;
-    return mongoose.connect(dbUrl, {
+    return await mongoose.connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -46,8 +46,8 @@ class DiscordBirthdayWisher {
     if (!birthdayYear) throw new TypeError("A birthday year was not provided.");
     if (birthdayDay > 31 || birthdayDay < 1)
       throw new TypeError("A birthday day has to be between 1 and 31.");
-    if (birthdayMonth > 11 || birthdayMonth < 0)
-      throw new TypeError("A birthday month has to be between 0 and 11.");
+    if (birthdayMonth > 12 || birthdayMonth < 1)
+      throw new TypeError("A birthday month has to be between 1 and 12.");
     if (birthdayYear > currentYear)
       throw new TypeError(`A birthday year can't be over ${currentYear}`);
 
@@ -69,17 +69,16 @@ class DiscordBirthdayWisher {
       .save()
       .catch((e) => console.log(`Failed to set birthday: ${e}`));
 
+    const channel = client.channels.cache
+      .get(channelId)
+      .catch((e) => `Failed to get the channel: ${e}`);
     const rule = new schedule.RecurrenceRule();
-    rule.month = birthdayMonth;
+    rule.month = birthdayMonth - 1;
     rule.date = birthdayDay;
-    rule.hour = 12;
+    rule.hour = 0;
     rule.minute = 0;
 
     job = schedule.scheduleJob(rule, function () {
-      const channel = client.channels.cache
-        .get(channelId)
-        .catch((e) => `Failed to get the channel: ${e}`);
-
       const embed = new MessageEmbed()
         .setColor("BLURPLE")
         .setDescription(
@@ -90,6 +89,13 @@ class DiscordBirthdayWisher {
 
       channel.send({ embeds: [embed] });
     });
+    const embed = new MessageEmbed()
+      .setColor("BLURPLE")
+      .setDescription(
+        `I will wish <@${userId}> a happy birthday on ${birthdayDay}/${birthdayMonth}/${birthdayYear}`
+      );
+
+    channel.send({ embeds: [embed] });
 
     return newBirthday;
   }
@@ -103,18 +109,18 @@ class DiscordBirthdayWisher {
     if (!userId) throw new TypeError("A user id was not provided.");
     if (!guildId) throw new TypeError("A guild id was not provided.");
 
-    const birthday = await birthdays.findOne({
+    const Birthday = await birthdays.findOne({
       userID: userId,
       guildID: guildId,
     });
-    if (!birthday) return false;
+    if (!Birthday) return false;
 
     await birthdays
       .findOneAndDelete({ userID: userId, guildID: guildId })
       .catch((e) => console.log(`Failed to delete birthday: ${e}`));
-
     await job.cancel();
-    return birthday;
+
+    return Birthday;
   }
 
   /**
@@ -141,8 +147,8 @@ class DiscordBirthdayWisher {
     if (!birthdayYear) throw new TypeError("A birthday year was not provided.");
     if (birthdayDay > 31 || birthdayDay < 1)
       throw new TypeError("A birthday day has to be between 1 and 31.");
-    if (birthdayMonth > 11 || birthdayMonth < 0)
-      throw new TypeError("A birthday month has to be between 0 and 11.");
+    if (birthdayMonth > 12 || birthdayMonth < 1)
+      throw new TypeError("A birthday month has to be between 1 and 12.");
     if (birthdayYear > currentYear)
       throw new TypeError(`A birthday year can't be over ${currentYear}`);
 
@@ -163,6 +169,14 @@ class DiscordBirthdayWisher {
         BirthdayYear: birthdayYear,
       }
     );
+
+    const rule = new schedule.RecurrenceRule();
+    rule.month = birthdayMonth;
+    rule.date = birthdayDay;
+    rule.hour = 0;
+    rule.minute = 0;
+    await job.reschedule(rule);
+
     return newBirthday;
   }
 }
