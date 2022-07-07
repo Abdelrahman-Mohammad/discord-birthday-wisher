@@ -67,6 +67,8 @@ const Birthdays = require("discord-birthday-wisher");
 
 After that, you need to provide a valid mongo database url, and set it. You can do so by:
 
+See How to connect to MongoDB Atlas [here](https://studio3t.com/knowledge-base/articles/connect-to-mongodb-atlas/)
+
 ```js
 Birthdays.connectionURL("mongodb://..."); // You only need to do this ONCE per process.
 ```
