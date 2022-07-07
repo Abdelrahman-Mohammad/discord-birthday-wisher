@@ -25,143 +25,141 @@ _Following example assumes that you are able to write asynchronous code (use `aw
 
 Examples:
 
-- [Allocating Random XP For Each Message Sent](https://github.com/MrAugu/discord-xp/blob/master/test/README.md#allocating-random-xp-for-each-message-sent)
-- [Rank Command](https://github.com/MrAugu/discord-xp/blob/master/test/README.md#rank-command)
-- [Leaderboard Command](https://github.com/MrAugu/discord-xp/blob/master/test/README.md#leaderboard-command)
-- [Position of a user in the leaderboard](https://github.com/MrAugu/discord-xp/blob/master/test/README.md#position-of-a-user-in-the-leaderboard)
-- [Canvacord Integration](https://github.com/MrAugu/discord-xp/blob/master/test/README.md#canvacord-integration)
+- [Adding a new birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test#adding-a-new-birthday)
+- [Removing a brithday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test#removing-a-birthday)
+- [Chaning a birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test#changing-a-birthday)
 
 ---
 
-## Allocating Random XP For Each Message Sent
+## Adding a new birthday
 
 ```js
 client.on("messageCreate", async (message) => {
   if (!message.guild) return;
   if (message.author.bot) return;
 
-  const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Min 1, Max 30
-  const hasLeveledUp = await Birthdays.appendXp(
-    message.author.id,
-    message.guild.id,
-    randomAmountOfXp
+  const userId = message.author.id; // Current User ID
+  const guildId = message.guild.id; // Current Guild ID
+  const channelId = message.channel.id; // Current Channel ID
+  const myBirthday = Birthdays.setBirthday(
+    userId,
+    guildId,
+    channelId,
+    8,
+    11,
+    2005
   );
-  if (hasLeveledUp) {
-    const user = await Birthdays.fetch(message.author.id, message.guild.id);
-    message.channel.send({
-      content: `${message.author}, congratulations! You have leveled up to **${user.level}**. :tada:`,
-    });
-  }
+  await message.channel.send(
+    `I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`
+  );
 });
 ```
 
-## Rank Command
+## Removing a brithday
 
 ```js
-const target = message.mentions.users.first() || message.author; // Grab the target.
+client.on("messageCreate", async (message) => {
+  if (!message.guild) return; // Make sure the message is in a guild
+  if (message.author.bot) return; // Make sure the message author is not a bot
 
-const user = await Birthdays.fetch(target.id, message.guild.id); // Selects the target from the database.
-
-if (!user)
-  return message.channel.send(
-    "Seems like this user has not earned any xp so far."
-  ); // If there isnt such user in the database, we send a message in general.
-
-message.channel.send(`> **${target.tag}** is currently level ${user.level}.`); // We show the level.
-```
-
-## Leaderboard Command
-
-```js
-const rawLeaderboard = await Birthdays.fetchLeaderboard(message.guild.id, 10); // We grab top 10 users with most xp in the current server.
-
-if (rawLeaderboard.length < 1) return reply("Nobody's in leaderboard yet.");
-
-const leaderboard = await Birthdays.computeLeaderboard(
-  client,
-  rawLeaderboard,
-  true
-); // We process the leaderboard.
-
-const lb = leaderboard.map(
-  (e) =>
-    `${e.position}. ${e.username}#${e.discriminator}\nLevel: ${
-      e.level
-    }\nXP: ${e.xp.toLocaleString()}`
-); // We map the outputs.
-
-message.channel.send(`**Leaderboard**:\n\n${lb.join("\n\n")}`);
-```
-
-## Position of a user in the leaderboard
-
-```js
-const target = message.mentions.users.first() || message.author; // Grab the target.
-
-const user = await Birthdays.fetch(target.id, message.guild.id, true); // Selects the target from the database.
-
-console.log(user.position);
-```
-
-## Canvacord Integration
-
-Obviously you need the npm package `canvacord` for that. Install it with `npm install canvacord`.
-
-```js
-const canvacord = require("canvacord");
-
-const target = message.mentions.users.first() || message.author; // Grab the target.
-
-const user = await Birthdays.fetch(target.id, message.guild.id, true); // Selects the target from the database.
-
-const rank = new canvacord.Rank() // Build the Rank Card
-  .setAvatar(target.displayAvatarURL({ format: "png", size: 512 }))
-  .setCurrentXP(user.xp) // Current User Xp
-  .setRequiredXP(Birthdays.xpFor(user.level + 1)) // We calculate the required Xp for the next level
-  .setRank(user.position) // Position of the user on the leaderboard
-  .setLevel(user.level) // Current Level of the user
-  .setProgressBar("#FFFFFF")
-  .setUsername(target.username)
-  .setDiscriminator(target.discriminator);
-
-rank.build().then((data) => {
-  const attachment = new Discord.MessageAttachment(data, "RankCard.png");
-  message.channel.send(attachment);
+  const userId = message.author.id; // Current User ID
+  const guildId = message.guild.id; // Current Guild ID
+  const channelId = message.channel.id; // Current Channel ID
+  const myBirthday = Birthdays.deleteBirthday(userId, guildId);
+  await message.channel.send(`Successfully deleted birthday.`);
 });
 ```
 
-While this previous example works **perfectly** fine a lot of people asked how they could only get the required xp needed for the next level and the actual xp progress in the current level.
+## Chaning a birthday
 
 ```js
+client.on("messageCreate", async (message) => {
+  if (!message.guild) return;
+  if (message.author.bot) return;
 
-<user>.cleanXp // Gets the current xp in the current level
-<user>.cleanNextLevelXp // Gets the actual xp needed to reach the next level
-
+  const userId = message.author.id; // Current User ID
+  const guildId = message.guild.id; // Current Guild ID
+  const channelId = message.channel.id; // Current Channel ID
+  const myBirthday = await Birthdays.setBirthday(
+    userId,
+    guildId,
+    channelId,
+    8,
+    11,
+    2005
+  );
+  await message.channel.send(
+    `Birthday changed. I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`
+  );
+});
 ```
 
 Resulting code:
 
 ```js
-const canvacord = require("canvacord");
+const Birthdays = require("discord-birthday-wisher");
+const { Client } = require("discord.js");
+const client = new Client({ intents: 32767 });
 
-const target = message.mentions.users.first() || message.author; // Grab the target.
+client.on("ready", async (client) => {
+    console.log("Ready!");
+})
 
-const user = await Birthdays.fetch(target.id, message.guild.id, true); // Selects the target from the database.
+// Connecting to MongoDB
+Birthdays.connectionURL("mongodb://...").then(console.log("connected"));
 
-const rank = new canvacord.Rank() // Build the Rank Card
-  .setAvatar(target.displayAvatarURL({ format: "png", size: 512 }))
-  .setCurrentXP(user.cleanXp) // Current User Xp for the current level
-  .setRequiredXP(user.cleanNextLevelXp) //The required Xp for the next level
-  .setRank(user.position) // Position of the user on the leaderboard
-  .setLevel(user.level) // Current Level of the user
-  .setProgressBar("#FFFFFF")
-  .setUsername(target.username)
-  .setDiscriminator(target.discriminator);
+// Setting Birthday
+client.on("messageCreate", async (message) => {
+  if (!message.guild) return;
+  if (message.author.bot) return;
 
-rank.build().then((data) => {
-  const attachment = new Discord.MessageAttachment(data, "RankCard.png");
-  message.channel.send(attachment);
+  const userId = message.author.id; // Current User ID
+  const guildId = message.guild.id; // Current Guild ID
+  const channelId = message.channel.id; // Current Channel ID
+  const myBirthday = Birthdays.setBirthday(
+    userId,
+    guildId,
+    channelId,
+    8,
+    11,
+    2005
+  );
+  await message.channel.send(
+    `I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`
+  );
 });
+
+// Deleting Birthday
+client.on("messageCreate", async (message) => {
+  if (!message.guild) return; // Make sure the message is in a guild
+  if (message.author.bot) return; // Make sure the message author is not a bot
+
+  const userId = message.author.id; // Current User ID
+  const guildId = message.guild.id; // Current Guild ID
+  const channelId = message.channel.id; // Current Channel ID
+  const myBirthday = Birthdays.deleteBirthday(userId, guildId);
+  await message.channel.send(`Successfully deleted birthday.`);
+});
+
+// Changing Birthday
+client.on("messageCreate", async (message) => {
+  if (!message.guild) return;
+  if (message.author.bot) return;
+
+  const userId = message.author.id; // Current User ID
+  const guildId = message.guild.id; // Current Guild ID
+  const channelId = message.channel.id; // Current Channel ID
+  const myBirthday = await Birthdays.setBirthday(
+    userId,
+    guildId,
+    channelId,
+    8,
+    11,
+    2005
+  );
+  await message.channel.send(
+    `Birthday changed. I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`
+  );
 ```
 
 _It's time for you to get creative.._
