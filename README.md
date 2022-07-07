@@ -31,7 +31,14 @@ npm update discord-birthday-wisher
 /* setBirthday Example */
 const birthdays = require("discord-birthday-wisher");
 // Sets the birthday for a user to 08/11/2005.
-const myBirthday = Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);
+const myBirthday = Birthdays.setBirthday(
+  userId,
+  guildId,
+  channelId,
+  8,
+  11,
+  2005
+);
 
 console.log(myBirthday.BirthdayDay); // Output: 8
 console.log(myBirthday.BirthdayMonth); // Output: 11
@@ -100,5 +107,26 @@ Birthdays.changeBirthday(<BirthdayDay - Number> , BirthdayMonth - Number>, <Birt
 ```
 Promise<Object>
 ```
+
+# How it works
+
+## setBirthday
+
+1. First, it runs a check to validated the given parameters.
+2. Then, it creates a MongoDB document in your database that stores the information.
+3. After that, it uses [node-schedule](https://www.npmjs.com/package/node-schedule) to schedule a job at the specified birthday date.
+4. Lastly, when we get to that date, it sends a message to the specified channel wishing the user a happy birthday.
+
+## deleteBirthday
+
+1. First, it runs a check to validated the given parameters.
+2. Then, it finds the MongoDB document that matches with the inforamtion and deletes this document.
+3. Lastly, it retrieves the [node-schedule](https://www.npmjs.com/package/node-schedule) job and cancels it.
+
+## changeBirthday
+
+1. First, it runs a check to validated the given parameters.
+2. Then, it finds the MongoDB document that matches with the inforamtion and updates this document.
+3. Lastly, it retrieves the [node-schedule](https://www.npmjs.com/package/node-schedule) job and updates it with the new date.
 
 Have fun and happy birthdays! Made with ❤ by Abdelrahman.
