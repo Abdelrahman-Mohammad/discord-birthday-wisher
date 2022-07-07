@@ -25,9 +25,9 @@ _Following example assumes that you are able to write asynchronous code (use `aw
 
 Examples:
 
-- [Adding a new birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/edit/main/test/README.md#adding-a-new-birthday)
-- [Removing a brithday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test/README.md#removing-a-birthday)
-- [Chaning a birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test/README.md#changing-a-birthday)
+- [Adding a new birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/edit/main/test#adding-a-new-birthday)
+- [Removing a brithday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test/#removing-a-birthday)
+- [Chaning a birthday](https://github.com/Abdelrahman-Mohammad/discord-birthday-wisher/tree/main/test/#changing-a-birthday)
 
 ---
 
