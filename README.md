@@ -29,7 +29,7 @@ npm update discord-birthday-wisher
 
 ```js
 /* setBirthday Example */
-const birthdays = require("discord-birthday-wisher");
+const Birthdays = require("discord-birthday-wisher");
 // Sets the birthday for a user to 08/11/2005.
 const myBirthday = Birthdays.setBirthday(
   userId,
