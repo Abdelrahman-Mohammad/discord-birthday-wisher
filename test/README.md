@@ -9,6 +9,7 @@ const Birthdays = require("discord-birthday-wisher");
 After that, you need to provide a valid mongo database url, and set it. You can do so by:
 
 See How to connect to MongoDB Atlas [here](https://studio3t.com/knowledge-base/articles/connect-to-mongodb-atlas/)
+
 ```js
 Birthdays.connectionURL("mongodb://..."); // You only need to do this ONCE per process.
 ```
@@ -38,27 +39,36 @@ Examples:
 client.on("messageCreate", async (message) => {
   if (!message.guild) return;
   if (message.author.bot) return;
+  if (!message.content.includes("set")) return;
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
   const channelId = message.channel.id; // Current Channel ID
-  const myBirthday = Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);
+  const myBirthday = Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);\
+  if (myBirthday === false) {
+    return message.channel.send("I'm already going to wish you a happy birthday.")
+  }
   await message.channel.send(`I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`);
 });
 ```
+
 _note: you need to have client defined for this fucntion, and it needs to be named "client"._
-  
+
 ## Removing a brithday
 
 ```js
 client.on("messageCreate", async (message) => {
   if (!message.guild) return; // Make sure the message is in a guild
   if (message.author.bot) return; // Make sure the message author is not a bot
+  if (!message.content.includes("delete")) return;
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
   const channelId = message.channel.id; // Current Channel ID
   const myBirthday = Birthdays.deleteBirthday(userId, guildId);
+  if (myBirthday === false) {
+    return message.channel.send("Looks like you need to add a birthday first.");
+  }
   await message.channel.send(`Successfully deleted birthday.`);
 });
 ```
@@ -69,11 +79,23 @@ client.on("messageCreate", async (message) => {
 client.on("messageCreate", async (message) => {
   if (!message.guild) return;
   if (message.author.bot) return;
+  if (!message.content.includes("change")) return;
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
-  const myBirthday = await Birthdays.changeBirthday(userId, guildId, 8, 11, 2005);
-  await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`);
+  const myBirthday = await Birthdays.changeBirthday(
+    userId,
+    guildId,
+    8,
+    11,
+    2005
+  );
+  if (myBirthday === false) {
+    return message.channel.send("Looks like you need to add a birthday first.");
+  }
+  await message.channel.send(
+    `Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`
+  );
 });
 ```
 
@@ -85,8 +107,8 @@ const { Client } = require("discord.js");
 const client = new Client({ intents: 32767 });
 
 client.on("ready", async (client) => {
-    console.log("Ready!");
-})
+  console.log("Ready!");
+});
 
 // Connecting to MongoDB
 Birthdays.connectionURL("mongodb://...").then(console.log("connected"));
@@ -95,23 +117,42 @@ Birthdays.connectionURL("mongodb://...").then(console.log("connected"));
 client.on("messageCreate", async (message) => {
   if (!message.guild) return;
   if (message.author.bot) return;
+  if (!message.content.includes("set")) return;
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
   const channelId = message.channel.id; // Current Channel ID
-  const myBirthday = Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);
-  await message.channel.send(`I will wish you a happy birthday on ${myBirthday.Full}`);
+  const myBirthday = Birthdays.setBirthday(
+    userId,
+    guildId,
+    channelId,
+    8,
+    11,
+    2005
+  );
+  if (myBirthday === false) {
+    return message.channel.send(
+      "I'm already going to wish you a happy birthday."
+    );
+  }
+  await message.channel.send(
+    `I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`
+  );
 });
 
 // Deleting Birthday
 client.on("messageCreate", async (message) => {
   if (!message.guild) return; // Make sure the message is in a guild
   if (message.author.bot) return; // Make sure the message author is not a bot
+  if (!message.content.includes("delete")) return;
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
   const channelId = message.channel.id; // Current Channel ID
   const myBirthday = Birthdays.deleteBirthday(userId, guildId);
+  if (myBirthday === false) {
+    return message.channel.send("Looks like you need to add a birthday first.");
+  }
   await message.channel.send(`Successfully deleted birthday.`);
 });
 
@@ -119,11 +160,24 @@ client.on("messageCreate", async (message) => {
 client.on("messageCreate", async (message) => {
   if (!message.guild) return;
   if (message.author.bot) return;
+  if (!message.content.includes("change")) return;
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
-  const myBirthday = await Birthdays.changeBirthday(userId, guildId, 8, 11, 2005);
-  await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`);
+  const myBirthday = await Birthdays.changeBirthday(
+    userId,
+    guildId,
+    8,
+    11,
+    2005
+  );
+  if (myBirthday === false) {
+    return message.channel.send("Looks like you need to add a birthday first.");
+  }
+  await message.channel.send(
+    `Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`
+  );
+});
 ```
 
 _Now it's time for you to get creative and wish everyone a happy birthday.._
