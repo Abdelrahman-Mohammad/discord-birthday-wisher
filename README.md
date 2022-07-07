@@ -31,14 +31,7 @@ npm update discord-birthday-wisher
 /* setBirthday Example */
 const Birthdays = require("discord-birthday-wisher");
 // Sets the birthday for a user to 08/11/2005.
-const myBirthday = Birthdays.setBirthday(
-  userId,
-  guildId,
-  channelId,
-  8,
-  11,
-  2005
-);
+const myBirthday = Birthdays.setBirthday("611107142560382976" "753938142246994031", "753938142246994033", 8, 11, 2005);
 
 console.log(myBirthday.BirthdayDay); // Output: 8
 console.log(myBirthday.BirthdayMonth); // Output: 11
@@ -99,7 +92,7 @@ Promise<Object>
 If the birthday exists, changes it from the database.
 
 ```js
-Birthdays.changeBirthday(<BirthdayDay - Number> , BirthdayMonth - Number>, <BirthdayYear - Number>);
+Birthdays.changeBirthday(<BirthdayDay - Number> , <BirthdayMonth - Number>, <BirthdayYear - Number>);
 ```
 
 - Output:
