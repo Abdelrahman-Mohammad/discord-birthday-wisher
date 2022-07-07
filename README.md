@@ -12,7 +12,7 @@
 You can download it from npm:
 
 ```cli
-npm i discord-birthday-wisher
+npm install discord-birthday-wisher
 ```
 
 You can update to a newer version to receive updates using npm.
@@ -31,13 +31,7 @@ npm update discord-birthday-wisher
 /* setBirthday Example */
 const birthdays = require("discord-birthday-wisher");
 // Sets the birthday for a user to 08/11/2005.
-var myBirthday = birthdays.setBirthday(
-  "611107142560382976",
-  "753938142246994031",
-  "8",
-  "11",
-  "2005"
-);
+const myBirthday = Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);
 
 console.log(myBirthday.BirthdayDay); // Output: 8
 console.log(myBirthday.BirthdayMonth); // Output: 11
@@ -50,13 +44,13 @@ console.log(myBirthday.BirthdayFull); // Output: 8/11/2005
 First things first, we include the module into the project.
 
 ```js
-const birthdays = require("discord-birthday-wisher");
+const Birthdays = require("discord-birthday-wisher");
 ```
 
 After that, you need to provide a valid mongo database url, and set it. You can do so by:
 
 ```js
-birthdays.setURL("mongodb://..."); // You only need to do this ONCE per process.
+Birthdays.connectionURL("mongodb://..."); // You only need to do this ONCE per process.
 ```
 
 # Examples
@@ -70,7 +64,7 @@ _Examples can be found in /test_
 Creates an entry in database for that birthday if it doesnt exist.
 
 ```js
-birthdays.setBirthday(<UserID - String>, <GuildID - String>, <BirthdayDay - Number> , BirthdayMonth - Number>, <BirthdayYear - Number>);
+Birthdays.setBirthday(<UserID - String>, <GuildID - String>, <ChannelID - String>, <BirthdayDay - Number> , BirthdayMonth - Number>, <BirthdayYear - Number>);
 ```
 
 - Output:
@@ -84,7 +78,7 @@ Promise<Object>
 If the birthday exists, deletes it from the database.
 
 ```js
-birthdays.deleteBirthday(<UserID - String>, <GuildID - String>);
+Birthdays.deleteBirthday(<UserID - String>, <GuildID - String>);
 ```
 
 - Output:
@@ -98,7 +92,7 @@ Promise<Object>
 If the birthday exists, changes it from the database.
 
 ```js
-birthdays.changeBirthday(<UserID - String>, <GuildID - String>, <BirthdayDay - Number> , BirthdayMonth - Number>, <BirthdayYear - Number>);
+Birthdays.changeBirthday(<BirthdayDay - Number> , BirthdayMonth - Number>, <BirthdayYear - Number>);
 ```
 
 - Output:
