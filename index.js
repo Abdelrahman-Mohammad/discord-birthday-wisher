@@ -60,18 +60,16 @@ class DiscordBirthdayWisher {
     const newBirthday = new birthdays({
       userID: userId,
       guildID: guildId,
-      BirthdayDay: birthdayDay,
-      BirthdayMonth: birthdayMonth,
-      BirthdayYear: birthdayYear,
+      Day: birthdayDay,
+      Month: birthdayMonth,
+      Year: birthdayYear,
+      Full: `${birthdayDay}/${birthdayMonth}/${birthdayYear}`,
     });
 
     await newBirthday
       .save()
       .catch((e) => console.log(`Failed to set birthday: ${e}`));
 
-    const channel = client.channels.cache
-      .get(channelId)
-      .catch((e) => `Failed to get the channel: ${e}`);
     const rule = new schedule.RecurrenceRule();
     rule.month = birthdayMonth - 1;
     rule.date = birthdayDay;
@@ -79,6 +77,9 @@ class DiscordBirthdayWisher {
     rule.minute = 0;
 
     job = schedule.scheduleJob(rule, function () {
+      const channel = client.channels.cache
+        .get(channelId)
+        .catch((e) => `Failed to get the channel: ${e}`);
       const embed = new MessageEmbed()
         .setColor("BLURPLE")
         .setDescription(
@@ -157,9 +158,10 @@ class DiscordBirthdayWisher {
         guildID: guildId,
       },
       {
-        BirthdayDay: birthdayDay,
-        BirthdayMonth: birthdayMonth,
-        BirthdayYear: birthdayYear,
+        Day: birthdayDay,
+        Month: birthdayMonth,
+        Year: birthdayYear,
+        Full: `${birthdayDay}/${birthdayMonth}/${birthdayYear}`,
       }
     );
 

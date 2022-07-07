@@ -33,10 +33,10 @@ const Birthdays = require("discord-birthday-wisher");
 // Sets the birthday for a user to 08/11/2005.
 const myBirthday = Birthdays.setBirthday("611107142560382976" "753938142246994031", "753938142246994033", 8, 11, 2005);
 
-console.log(myBirthday.BirthdayDay); // Output: 8
-console.log(myBirthday.BirthdayMonth); // Output: 11
-console.log(myBirthday.BirthdayYear); // Output: 2005
-console.log(myBirthday.BirthdayFull); // Output: 8/11/2005
+console.log(myBirthday.Day); // Output: 8
+console.log(myBirthday.Month); // Output: 11
+console.log(myBirthday.Year); // Output: 2005
+console.log(myBirthday.Full); // Output: 8/11/2005
 ```
 
 # Setting Up
