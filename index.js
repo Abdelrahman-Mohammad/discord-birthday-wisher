@@ -28,28 +28,17 @@ class DiscordBirthdayWisher {
    * @param {number} [birthdayYear] - The year of the birthday.
    */
 
-  static async setBirthday(
-    userId,
-    guildId,
-    channelId,
-    birthdayDay,
-    birthdayMonth,
-    birthdayYear
-  ) {
+  static async setBirthday(userId, guildId, channelId, birthdayDay, birthdayMonth, birthdayYear) {
     const currentYear = new Date().getFullYear();
     if (!userId) throw new TypeError("A user id was not provided.");
     if (!guildId) throw new TypeError("A guild id was not provided.");
     if (!channelId) throw new TypeError("A channel id was not provided.");
     if (!birthdayDay) throw new TypeError("A birthday day was not provided.");
-    if (!birthdayMonth)
-      throw new TypeError("A birthday month was not provided.");
+    if (!birthdayMonth) throw new TypeError("A birthday month was not provided.");
     if (!birthdayYear) throw new TypeError("A birthday year was not provided.");
-    if (birthdayDay > 31 || birthdayDay < 1)
-      throw new TypeError("A birthday day has to be between 1 and 31.");
-    if (birthdayMonth > 12 || birthdayMonth < 1)
-      throw new TypeError("A birthday month has to be between 1 and 12.");
-    if (birthdayYear > currentYear)
-      throw new TypeError(`A birthday year can't be over ${currentYear}`);
+    if (birthdayDay > 31 || birthdayDay < 1) throw new TypeError("A birthday day has to be between 1 and 31.");
+    if (birthdayMonth > 12 || birthdayMonth < 1) throw new TypeError("A birthday month has to be between 1 and 12.");
+    if (birthdayYear > currentYear) throw new TypeError(`A birthday year can't be over ${currentYear}`);
 
     const isBirthday = await birthdays.findOne({
       userID: userId,
@@ -66,9 +55,7 @@ class DiscordBirthdayWisher {
       Full: `${birthdayDay}/${birthdayMonth}/${birthdayYear}`,
     });
 
-    await newBirthday
-      .save()
-      .catch((e) => console.log(`Failed to set birthday: ${e}`));
+    await newBirthday.save().catch((e) => console.log(`Failed to set birthday: ${e}`));
 
     const rule = new schedule.RecurrenceRule();
     rule.month = birthdayMonth - 1;
@@ -77,16 +64,8 @@ class DiscordBirthdayWisher {
     rule.minute = 0;
 
     job = schedule.scheduleJob(rule, function () {
-      const channel = client.channels.cache
-        .get(channelId)
-        .catch((e) => `Failed to get the channel: ${e}`);
-      const embed = new MessageEmbed()
-        .setColor("BLURPLE")
-        .setDescription(
-          `🎉 Happy birthday <@${userId}>! They are now ${
-            currentYear - birthdayYear
-          } years old. 🥳`
-        );
+      const channel = client.channels.cache.get(channelId).catch((e) => `Failed to get the channel: ${e}`);
+      const embed = new MessageEmbed().setColor("BLURPLE").setDescription(`🎉 Happy birthday <@${userId}>! They are now ${currentYear - birthdayYear} years old. 🥳`);
 
       channel.send({ embeds: [embed] });
     });
@@ -109,9 +88,7 @@ class DiscordBirthdayWisher {
     });
     if (!Birthday) return false;
 
-    await birthdays
-      .findOneAndDelete({ userID: userId, guildID: guildId })
-      .catch((e) => console.log(`Failed to delete birthday: ${e}`));
+    await birthdays.findOneAndDelete({ userID: userId, guildID: guildId }).catch((e) => console.log(`Failed to delete birthday: ${e}`));
     await job.cancel();
 
     return Birthday;
@@ -125,26 +102,16 @@ class DiscordBirthdayWisher {
    * @param {number} [birthdayYear] - The year of the birthday.
    */
 
-  static async changeBirthday(
-    userId,
-    guildId,
-    birthdayDay,
-    birthdayMonth,
-    birthdayYear
-  ) {
+  static async changeBirthday(userId, guildId, birthdayDay, birthdayMonth, birthdayYear) {
     const currentYear = new Date().getFullYear();
     if (!userId) throw new TypeError("A user id was not provided.");
     if (!guildId) throw new TypeError("A guild id was not provided.");
     if (!birthdayDay) throw new TypeError("A birthday day was not provided.");
-    if (!birthdayMonth)
-      throw new TypeError("A birthday month was not provided.");
+    if (!birthdayMonth) throw new TypeError("A birthday month was not provided.");
     if (!birthdayYear) throw new TypeError("A birthday year was not provided.");
-    if (birthdayDay > 31 || birthdayDay < 1)
-      throw new TypeError("A birthday day has to be between 1 and 31.");
-    if (birthdayMonth > 12 || birthdayMonth < 1)
-      throw new TypeError("A birthday month has to be between 1 and 12.");
-    if (birthdayYear > currentYear)
-      throw new TypeError(`A birthday year can't be over ${currentYear}`);
+    if (birthdayDay > 31 || birthdayDay < 1) throw new TypeError("A birthday day has to be between 1 and 31.");
+    if (birthdayMonth > 12 || birthdayMonth < 1) throw new TypeError("A birthday month has to be between 1 and 12.");
+    if (birthdayYear > currentYear) throw new TypeError(`A birthday year can't be over ${currentYear}`);
 
     const birthday = await birthdays.findOne({
       userID: userId,
@@ -166,7 +133,7 @@ class DiscordBirthdayWisher {
     );
 
     const rule = new schedule.RecurrenceRule();
-    rule.month = birthdayMonth;
+    rule.month = birthdayMonth - 1;
     rule.date = birthdayDay;
     rule.hour = 0;
     rule.minute = 0;

@@ -37,9 +37,9 @@ Examples:
 
 ```js
 client.on("messageCreate", async (message) => {
-  if (!message.guild) return;
-  if (message.author.bot) return;
-  if (!message.content.includes("set")) return;
+  if (!message.guild) return; // Make sure the message is in a guild
+  if (message.author.bot) return; // Make sure the message author is not a bot
+  if (!message.content.includes("set")) return; // Make sure the message includes "set"
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
@@ -60,7 +60,7 @@ _note: you need to have client defined for this fucntion, and it needs to be nam
 client.on("messageCreate", async (message) => {
   if (!message.guild) return; // Make sure the message is in a guild
   if (message.author.bot) return; // Make sure the message author is not a bot
-  if (!message.content.includes("delete")) return;
+  if (!message.content.includes("delete")) return; // Make sure the message includes "delete"
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
@@ -77,25 +77,17 @@ client.on("messageCreate", async (message) => {
 
 ```js
 client.on("messageCreate", async (message) => {
-  if (!message.guild) return;
-  if (message.author.bot) return;
-  if (!message.content.includes("change")) return;
+  if (!message.guild) return; // Make sure the message is in a guild
+  if (message.author.bot) return; // Make sure the message author is not a bot
+  if (!message.content.includes("change")) return; // Make sure the message includes "change"
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
-  const myBirthday = await Birthdays.changeBirthday(
-    userId,
-    guildId,
-    8,
-    11,
-    2005
-  );
+  const myBirthday = await Birthdays.changeBirthday(userId, guildId, 8, 11, 2005);
   if (myBirthday === false) {
     return message.channel.send("Looks like you need to add a birthday first.");
   }
-  await message.channel.send(
-    `Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`
-  );
+  await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`);
 });
 ```
 
@@ -122,22 +114,11 @@ client.on("messageCreate", async (message) => {
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
   const channelId = message.channel.id; // Current Channel ID
-  const myBirthday = Birthdays.setBirthday(
-    userId,
-    guildId,
-    channelId,
-    8,
-    11,
-    2005
-  );
+  const myBirthday = Birthdays.setBirthday(userId, guildId, channelId, 8, 11, 2005);
   if (myBirthday === false) {
-    return message.channel.send(
-      "I'm already going to wish you a happy birthday."
-    );
+    return message.channel.send("I'm already going to wish you a happy birthday.");
   }
-  await message.channel.send(
-    `I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`
-  );
+  await message.channel.send(`I will wish you a happy birthday on ${myBirthday.BirthdayDay}/${myBirthday.BirthdayMonth}/${myBirthday.BirthdayYear}`);
 });
 
 // Deleting Birthday
@@ -164,19 +145,11 @@ client.on("messageCreate", async (message) => {
 
   const userId = message.author.id; // Current User ID
   const guildId = message.guild.id; // Current Guild ID
-  const myBirthday = await Birthdays.changeBirthday(
-    userId,
-    guildId,
-    8,
-    11,
-    2005
-  );
+  const myBirthday = await Birthdays.changeBirthday(userId, guildId, 8, 11, 2005);
   if (myBirthday === false) {
     return message.channel.send("Looks like you need to add a birthday first.");
   }
-  await message.channel.send(
-    `Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`
-  );
+  await message.channel.send(`Birthday changed. I will wish you a happy birthday on ${myBirthday.Full}`);
 });
 ```
 

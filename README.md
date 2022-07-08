@@ -23,6 +23,7 @@ npm update discord-birthday-wisher
 
 # Changelog
 
+- **8 July 2022** (v1.3.3) - Fixed bug in `changeBirthday()` assigning wrong birthday month.
 - **7 July 2022** (v1.3.0) - Changed
 
 ```js
@@ -49,7 +50,7 @@ to
 /* setBirthday Example */
 const Birthdays = require("discord-birthday-wisher");
 // Sets the birthday for a user to 08/11/2005.
-const myBirthday = Birthdays.setBirthday("611107142560382976" "753938142246994031", "753938142246994033", 8, 11, 2005);
+const myBirthday = Birthdays.setBirthday("611107142560382976", "753938142246994031", "753938142246994033", 8, 11, 2005);
 
 console.log(myBirthday.Day); // Output: 8
 console.log(myBirthday.Month); // Output: 11
